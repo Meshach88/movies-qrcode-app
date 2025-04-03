@@ -17,7 +17,7 @@ import { MoviesModule } from './movies/movies.module';
       database: process.env.DB_NAME || 'moviesdb',
       entities: [Movie],
       autoLoadEntities: true,
-      synchronize: false,
+      synchronize: true,
     }),
     MoviesModule,
   ],
