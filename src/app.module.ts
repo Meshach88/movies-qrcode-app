@@ -9,6 +9,7 @@ import { MoviesModule } from './movies/movies.module';
     ConfigModule.forRoot(), // Load environment variables
     TypeOrmModule.forRoot({
       type: 'postgres',
+      url: process.env.DATABASE_URL,
       host: process.env.DB_HOST || 'localhost',
       port: process.env.DB_PORT ?  parseInt(process.env.DB_PORT) : 5432,
       username: process.env.DB_USER || 'postgres',
@@ -16,7 +17,7 @@ import { MoviesModule } from './movies/movies.module';
       database: process.env.DB_NAME || 'moviesdb',
       entities: [Movie],
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
     }),
     MoviesModule,
   ],
