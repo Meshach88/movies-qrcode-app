@@ -9,5 +9,5 @@ export class Movie {
   title: string;
 
   @Column()
-  description: string;
+  image: string;
 }
