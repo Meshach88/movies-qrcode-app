@@ -26,15 +26,14 @@ async function seed() {
     process.exit(1);
   }
 
-  // Insert only required fields (id, title, image)
-  const formattedMovies = movieData.map(movie => ({
-    title: movie.title,
-    image: movie.image
-  }));
 
-  await movieRepository.insert(formattedMovies);
-
-  console.log('✅ Movies seeded successfully from JSON file!');
+  const count = await movieRepository.count();
+  if (count === 0) {
+    await movieRepository.insert(movieData);
+    console.log('✅ Movies seeded!');
+  } else {
+    console.log('ℹ️ Movies already seeded, skipping...');
+  }  
   await app.close();
 }
 
