@@ -10,8 +10,15 @@ async function seed() {
   const dataSource = app.get(DataSource);
   const movieRepository = dataSource.getRepository(Movie);
 
-  // Read JSON file
+  // Adjust file path for production deployment
   const filePath = path.join(__dirname, 'movies.json');
+
+  // Check if file exists
+  if (!fs.existsSync(filePath)) {
+    console.error('❌ movies.json file not found in:', filePath);
+    process.exit(1);
+  }
+
   const movieData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
   if (!Array.isArray(movieData)) {
@@ -19,8 +26,13 @@ async function seed() {
     process.exit(1);
   }
 
-  // Insert movies into the database
-  await movieRepository.insert(movieData);
+  // Insert only required fields (id, title, image)
+  const formattedMovies = movieData.map(movie => ({
+    title: movie.title,
+    image: movie.image
+  }));
+
+  await movieRepository.insert(formattedMovies);
 
   console.log('✅ Movies seeded successfully from JSON file!');
   await app.close();
