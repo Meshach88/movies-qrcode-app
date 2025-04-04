@@ -39,7 +39,7 @@ export class MoviesService implements OnModuleInit {
         // Store the movies with the token
         this.movieCache.set(token, movies);
 
-        const url = `https://movies-qrcode-api.onrender.com/movies/${token}`;
+        const url = `https://movies-qrcode-client.vercel.app/${token}`;
         return { token, url };
     }
 
