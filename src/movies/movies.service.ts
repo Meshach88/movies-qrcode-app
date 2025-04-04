@@ -28,7 +28,7 @@ export class MoviesService implements OnModuleInit {
 
         setInterval(async () => {
             await this.generateQRCode();
-            console.log('QR code and movie list regenerated.');
+            // console.log('QR code and movie list regenerated.');
         }, 10000);
     }
 
